@@ -1,120 +1,87 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PMP A4P – Ultra Premium</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMP A4P Premium</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;background:#eef4ff;margin:0;padding:40px}
+.container{max-width:900px;margin:auto;background:white;padding:30px;border-radius:12px;box-shadow:0 10px 25px rgba(0,0,0,.08)}
+button{padding:12px 20px;font-size:16px;border-radius:8px;border:none;background:#1d4ed8;color:white;cursor:pointer}
+.answers button{display:block;margin:8px 0;width:100%;background:#f1f5ff;color:#111;border:1px solid #c7d2fe}
+.answers button:hover{background:#dbe4ff}
+.hidden{display:none}
+</style>
 </head>
+
 <body>
-  <div class="app-shell">
-    <header class="hero">
-      <div class="brand">
-        <div class="brand-mark">A4P</div>
-        <div>
-          <h1>PMP A4P – Profil Mental de Performance</h1>
-          <p class="subtitle">Version Ultra Premium pensée comme une base de référence : 136 questions, 8 dimensions mentales, 3 profils dominants, lecture cognitive inspirée MBTI conservée, préférence motrice conservée, radar mental, rapport long imprimable et passeport mental local.</p>
-        </div>
-      </div>
-    </header>
+<div class="container">
 
-    <main>
-      <section id="screen-intro" class="screen active card">
-        <div class="intro-grid">
-          <div>
-            <h2>Avant de commencer</h2>
-            <p class="lead">Ce test a été conçu pour aider un jeune sportif, ses parents et son coach à comprendre comment le mental s'organise dans la performance : énergie, attention, régulation émotionnelle, engagement, confiance, résilience, cognition et motricité.</p>
-            <div class="note">
-              <strong>Cadre d'utilisation :</strong> cet outil est un support d'accompagnement. Il ne constitue ni un diagnostic médical, ni un test MBTI officiel. La lecture cognitive inspirée MBTI et la préférence motrice associée sont conservées comme repères de travail pédagogiques.
-            </div>
-          </div>
-          <div class="list-card">
-            <h3>Ce que tu reçois</h3>
-            <ul>
-              <li>Indice global A4P</li>
-              <li>Radar mental 8 dimensions</li>
-              <li>3 profils mentaux dominants</li>
-              <li>Équivalence cognitive inspirée MBTI</li>
-              <li>Préférence motrice associée</li>
-              <li>Rapport long imprimable</li>
-              <li>Passeport mental local</li>
-            </ul>
-          </div>
-        </div>
+<h1>PMP A4P – Profil Mental de Performance</h1>
 
-        <div class="form-grid">
-          <label>Nom du sportif
-            <input id="athleteName" type="text" placeholder="Prénom Nom" />
-          </label>
-          <label>Âge
-            <input id="athleteAge" type="number" min="10" max="99" placeholder="15" />
-          </label>
-          <label>Sport
-            <input id="athleteSport" type="text" placeholder="Football, tennis, judo..." />
-          </label>
-          <label>Club / structure
-            <input id="athleteClub" type="text" placeholder="Club, lycée, académie..." />
-          </label>
-          <label>Adresse email
-            <input id="athleteEmail" type="email" placeholder="email@example.com" />
-          </label>
-        </div>
+<div id="intro">
+<p>Test de diagnostic mental pour jeunes sportifs.</p>
+<button onclick="startTest()">Commencer le test</button>
+</div>
 
-        <div class="cta-row">
-          <button id="startBtn" class="btn primary">Commencer le test</button>
-          <button id="demoBtn" class="btn">Voir une démo</button>
-          <button id="resumeBtn" class="btn ghost">Reprendre une passation</button>
-        </div>
-      </section>
+<div id="test" class="hidden">
+<h3 id="qText"></h3>
+<div class="answers">
+<button onclick="answer(1)">Pas du tout d'accord</button>
+<button onclick="answer(2)">Plutôt pas d'accord</button>
+<button onclick="answer(3)">Mitigé</button>
+<button onclick="answer(4)">Plutôt d'accord</button>
+<button onclick="answer(5)">Tout à fait d'accord</button>
+</div>
+</div>
 
-      <section id="screen-test" class="screen card">
-        <div class="top-panel">
-          <div>
-            <div class="pill" id="blockTitle">Bloc</div>
-            <p class="muted" id="blockSubtitle">Description du bloc</p>
-            <p class="muted" id="questionCounter">Question 1 / 136</p>
-          </div>
-          <div class="progress-wrap">
-            <div class="progress"><div id="progressBar" class="progress-bar"></div></div>
-            <p class="muted" id="progressLabel">0% terminé</p>
-          </div>
-        </div>
+<div id="result" class="hidden">
+<h2>Résultat</h2>
+<p id="scoreText"></p>
+</div>
 
-        <div id="questionCard" class="question-card"></div>
+</div>
 
-        <div class="nav-row">
-          <button id="prevBtn" class="btn">Précédent</button>
-          <div class="side-actions">
-            <button id="saveBtn" class="btn ghost">Sauvegarder</button>
-            <button id="backHomeBtn" class="btn ghost">Retour accueil</button>
-          </div>
-          <button id="nextBtn" class="btn primary">Suivant</button>
-        </div>
-      </section>
+<script>
 
-      <section id="screen-report" class="screen">
-        <div class="report-toolbar card">
-          <div>
-            <h2>Rapport Ultra Premium</h2>
-            <p class="muted">Version imprimable / exportable du test PMP A4P.</p>
-          </div>
-          <div class="cta-row">
-            <button id="printBtn" class="btn primary">Exporter / Imprimer PDF</button>
-            <button id="jsonBtn" class="btn">Exporter JSON</button>
-            <button id="restartBtn" class="btn ghost">Nouveau test</button>
-          </div>
-        </div>
+const questions=[
+"Je reste concentré pendant toute la compétition",
+"Je rebondis rapidement après une erreur",
+"Je crois en mes capacités même sous pression",
+"Je garde mon calme dans les moments importants",
+"Je m'engage totalement dans l'effort"
+];
 
-        <article id="reportContent" class="report"></article>
-      </section>
-    </main>
-  </div>
+let index=0;
+let score=0;
 
-  <script src="data.js"></script>
-  <script src="questions.js"></script>
-  <script src="radar.js"></script>
-  <script src="report.js"></script>
-  <script src="engine.js"></script>
-  <script src="script.js"></script>
+function startTest(){
+document.getElementById("intro").classList.add("hidden");
+document.getElementById("test").classList.remove("hidden");
+showQuestion();
+}
+
+function showQuestion(){
+document.getElementById("qText").innerText=questions[index];
+}
+
+function answer(val){
+score+=val;
+index++;
+if(index>=questions.length){
+finish();
+}else{
+showQuestion();
+}
+}
+
+function finish(){
+document.getElementById("test").classList.add("hidden");
+document.getElementById("result").classList.remove("hidden");
+document.getElementById("scoreText").innerText="Score mental A4P : "+score;
+}
+
+</script>
 </body>
 </html>
